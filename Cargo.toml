@@ -8,13 +8,16 @@ default = ["node"]
 image = ["dep:resvg", "dep:image"]
 
 auto = ["node", "browser"]
-node = []
+node = ["dep:tempfile", "dep:zip-extract"]
 browser = ["dep:headless_chrome"]
 
 [dependencies]
 tracing = "0.1"
 thiserror = "1.0"
 node-semver = "2.1.0"
+
+tempfile = { version = "3.5.0", optional = true }
+zip-extract = { version = "0.1.2", optional = true }
 
 image = { version = "0.24.6", optional = true }
 resvg = { version = "0.33.0", optional = true }

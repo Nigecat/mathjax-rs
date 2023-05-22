@@ -6,19 +6,19 @@ mod renderer;
 
 pub use error::{InitError, RenderError};
 pub use renderer::Render;
+use renderer::Renderer;
 
 pub struct MathJax {
-    /// Whether NodeJs was available when this object was created
-    #[cfg(feature = "node")]
-    node_available: bool,
+    renderer: Renderer,
 }
 
 impl MathJax {
+    #[allow(clippy::needless_return)]
     pub fn new() -> Result<Self, InitError> {
         #[cfg(feature = "node")]
         if renderer::node::available() {
             return Ok(MathJax {
-                node_available: true,
+                renderer: Renderer::Node(renderer::node::Node::create()?),
             });
         } else {
             #[cfg(not(feature = "browser"))]
@@ -37,16 +37,8 @@ impl MathJax {
     {
         let expression = expression.as_ref();
 
-        #[cfg(feature = "node")]
-        if self.node_available {
-            return renderer::node::render(expression);
+        match self.renderer {
+            Renderer::Node(ref node) => node.render(expression),
         }
-
-        #[cfg(feature = "browser")]
-        {
-            // todo
-        }
-
-        unimplemented!();
     }
 }

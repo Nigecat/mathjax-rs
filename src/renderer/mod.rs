@@ -3,6 +3,13 @@ pub mod browser;
 #[cfg(feature = "node")]
 pub mod node;
 
+pub enum Renderer {
+    #[cfg(feature = "node")]
+    Node(node::Node),
+    // #[cfg(feature = "browser")]
+    // Browser,
+}
+
 /// The output of a renderer, this is the final [MathJax](https://www.mathjax.org/) image.
 pub struct Render {
     /// The actual SVG source that MathJax outputs
