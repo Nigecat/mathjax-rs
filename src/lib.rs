@@ -1,3 +1,4 @@
+#![cfg_attr(docs, feature(doc_auto_cfg))]
 #[cfg(all(not(feature = "node"), not(feature = "browser")))]
 compile_error!("No renderer enabled, at least one of either the `node` or `browser` feature flags must be enabled.");
 
