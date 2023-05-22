@@ -14,14 +14,40 @@ pub enum Renderer {
 pub struct Render {
     /// The actual SVG source that MathJax outputs
     source: String,
+    /// Whether the text/line color has been set
+    color_set: bool,
 }
 
 impl Render {
     fn new(source: String) -> Self {
-        Render { source }
+        Render {
+            source,
+            color_set: false,
+        }
+    }
+
+    /// Sets the text/line color of the rendered image.  
+    ///
+    /// Will return `true` if the operation was successful.
+    /// This function can only be called once, subsequent calls will do nothing and return `false`.
+    ///
+    /// Accepts any valid CSS [color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value.
+    pub fn set_color(&mut self, color: &str) -> bool {
+        if !self.color_set {
+            self.source = self.source.replace("currentColor", color);
+            self.color_set = true;
+            true
+        } else {
+            false
+        }
     }
 
     /// Returns the underlying SVG string. This is an `<svg>...</svg>` element.
+    pub fn raw(&self) -> &str {
+        &self.source
+    }
+
+    /// Converts the render into the underlying SVG string. This is an `<svg>...</svg>` element.
     pub fn into_raw(self) -> String {
         self.source
     }
