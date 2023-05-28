@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
 keywords = ["mathjax"]
+description = "A rust interface to MathJax"
 
 [features]
 default = ["auto"]
