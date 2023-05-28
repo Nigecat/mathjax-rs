@@ -48,11 +48,8 @@ impl Browser {
                 true,
             )?
             .value
-            // todo handle these errors nicer
-            .unwrap()
-            .as_str()
-            .unwrap()
-            .to_string();
+            .and_then(|value| value.as_str().map(ToString::to_string))
+            .unwrap_or_default();
 
         Ok(super::Render::new(svg))
     }

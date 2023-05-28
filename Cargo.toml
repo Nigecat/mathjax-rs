@@ -1,6 +1,6 @@
 [package]
 name = "mathjax"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "Apache-2.0"
 keywords = ["mathjax"]
@@ -10,7 +10,7 @@ documentation = "https://docs.rs/mathjax"
 homepage = "https://docs.rs/mathjax"
 
 [features]
-default = ["auto"]
+default = ["auto", "image"]
 image = ["dep:resvg", "dep:image"]
 
 auto = ["node", "browser"]

@@ -75,13 +75,20 @@ impl Render {
     /// You'll probably need some trial and error to figure out what works best for your use case, I'd recommend starting at ~`10.0`.  
     #[cfg(feature = "image")]
     pub fn into_image(self, scaling_factor: f32) -> Result<image::DynamicImage, image::ImageError> {
-        // todo don't unwrap
-        let rtree = self.into_svg().unwrap();
+        let rtree = self.into_svg().map_err(|_| {
+            image::ImageError::Unsupported(image::error::UnsupportedError::from_format_and_kind(
+                image::error::ImageFormatHint::Unknown,
+                image::error::UnsupportedErrorKind::Format(image::error::ImageFormatHint::Unknown),
+            ))
+        })?;
 
         let pixmap_size = resvg::IntSize::from_usvg(rtree.size)
             .scale_by(scaling_factor.into())
+            // unwrap is safe as this can only error if either width=0 or height=0, and from_usvg has a minimum value of `1`
             .unwrap();
 
+        // unwrap is safe as this can only error if either pixmap_size.width=0 or pixmap_size.height=0,
+        //  and since from_usvg must be >=1, the post-scale size must also be >=0
         let mut pixmap =
             resvg::tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height()).unwrap();
         rtree.render(

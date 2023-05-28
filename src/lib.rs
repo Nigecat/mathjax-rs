@@ -48,7 +48,7 @@
 //!          ">
 
 #![cfg_attr(docs, feature(doc_auto_cfg))]
-#![doc(html_root_url = "https://docs.rs/mathjax/0.1.0")]
+#![doc(html_root_url = "https://docs.rs/mathjax/0.1.1")]
 #![warn(missing_docs)]
 #[cfg(all(not(feature = "node"), not(feature = "browser")))]
 compile_error!("No renderer enabled, at least one of either the `node` or `browser` feature flags must be enabled.");
