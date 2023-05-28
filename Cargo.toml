@@ -5,6 +5,9 @@ edition = "2021"
 license = "Apache-2.0"
 keywords = ["mathjax"]
 description = "A rust interface to MathJax"
+repository = "https://github.com/Nigecat/mathjax-rs"
+documentation = "https://docs.rs/mathjax"
+homepage = "https://docs.rs/mathjax"
 
 [features]
 default = ["auto"]
