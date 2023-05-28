@@ -30,6 +30,9 @@ headless_chrome = { version = "1.0.5", features = ["fetch"], optional = true }
 all-features = true
 rustdoc-args = ["--cfg", "docs"]
 
+[badges.maintenance]
+status = "actively-developed"
+
 [[example]]
 name = "svg"
 required-features = ["auto"]

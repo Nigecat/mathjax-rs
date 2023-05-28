@@ -43,6 +43,7 @@
 //! (see [`Render::into_image`] for what `10.0` means here)
 
 #![cfg_attr(docs, feature(doc_auto_cfg))]
+#![doc(html_root_url = "https://docs.rs/mathjax/0.1.0")]
 #![warn(missing_docs)]
 #[cfg(all(not(feature = "node"), not(feature = "browser")))]
 compile_error!("No renderer enabled, at least one of either the `node` or `browser` feature flags must be enabled.");
