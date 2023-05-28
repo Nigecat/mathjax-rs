@@ -1,6 +1,3 @@
-# (cd ../mathjax && npm ci && npm run compile)
-# (cd ../mathjax/js && zip -r ../../mathjax-data/data.zip .)
-
 rm -rv temp
 rm -v data.zip
 mkdir -vp temp

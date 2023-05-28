@@ -6,8 +6,8 @@ pub mod node;
 pub enum Renderer {
     #[cfg(feature = "node")]
     Node(node::Node),
-    // #[cfg(feature = "browser")]
-    // Browser,
+    #[cfg(feature = "browser")]
+    Browser(browser::Browser),
 }
 
 /// The output of a renderer, this is the final [MathJax](https://www.mathjax.org/) image.
@@ -70,19 +70,21 @@ impl Render {
 
     /// Converts the render into an [`image::DynamicImage`].
     #[cfg(feature = "image")]
-    pub fn into_image(self) -> Result<image::DynamicImage, image::ImageError> {
-        // let rtree = self.into_svg().unwrap();
+    pub fn into_image(self, scaling_factor: f32) -> Result<image::DynamicImage, image::ImageError> {
+        // todo don't unwrap
+        let rtree = self.into_svg().unwrap();
 
-        // let pixmap_size = resvg::IntSize::from_usvg(rtree.size);
-        // let mut pixmap =
-        //     resvg::tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height()).unwrap();
-        // rtree.render(resvg::tiny_skia::Transform::default(), &mut pixmap.as_mut());
+        let pixmap_size = resvg::IntSize::from_usvg(rtree.size)
+            .scale_by(scaling_factor.into())
+            .unwrap();
 
-        // Ok(image::load_from_memory_with_format(
-        //     &pixmap.encode_png().unwrap(),
-        //     image::ImageFormat::Png,
-        // )
-        // .unwrap())
-        unimplemented!(); // todo - extra care needs to be taken with scaling
+        let mut pixmap =
+            resvg::tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height()).unwrap();
+        rtree.render(
+            resvg::tiny_skia::Transform::from_scale(scaling_factor, scaling_factor),
+            &mut pixmap.as_mut(),
+        );
+
+        image::load_from_memory_with_format(&pixmap.encode_png().unwrap(), image::ImageFormat::Png)
     }
 }

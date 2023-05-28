@@ -1,4 +1,3 @@
-use crate::InitError;
 use std::process::Command;
 
 static MATHJAX: &[u8] = include_bytes!("../../mathjax-data/data.zip");
@@ -28,7 +27,7 @@ pub struct Node {
 }
 
 impl Node {
-    pub fn create() -> Result<Self, InitError> {
+    pub fn create() -> Result<Self, crate::InitError> {
         let mathjax_lib = tempfile::tempdir()?;
         zip_extract::extract(std::io::Cursor::new(MATHJAX), mathjax_lib.path(), true)?;
         Ok(Node { mathjax_lib })

@@ -28,7 +28,9 @@ impl MathJax {
 
         #[cfg(feature = "browser")]
         {
-            // todo
+            return Ok(MathJax {
+                renderer: Renderer::Browser(renderer::browser::Browser::create()?),
+            });
         }
     }
 
@@ -39,7 +41,10 @@ impl MathJax {
         let expression = expression.as_ref();
 
         match self.renderer {
+            #[cfg(feature = "node")]
             Renderer::Node(ref node) => node.render(expression),
+            #[cfg(feature = "browser")]
+            Renderer::Browser(ref browser) => browser.render(expression),
         }
     }
 }
