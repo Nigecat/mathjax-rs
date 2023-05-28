@@ -2,6 +2,8 @@
 name = "mathjax"
 version = "0.1.0"
 edition = "2021"
+license = "Apache-2.0"
+keywords = ["mathjax"]
 
 [features]
 default = ["auto"]
@@ -29,9 +31,6 @@ headless_chrome = { version = "1.0.5", features = ["fetch"], optional = true }
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "docs"]
-
-[badges.maintenance]
-status = "actively-developed"
 
 [[example]]
 name = "svg"
