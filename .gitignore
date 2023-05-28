@@ -1,3 +1,4 @@
+/test.*
 /target/
 /Cargo.lock
 /mathjax-data/temp/

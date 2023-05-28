@@ -12,7 +12,6 @@ node = ["dep:tempfile", "dep:zip-extract"]
 browser = ["dep:headless_chrome", "dep:anyhow"]
 
 [dependencies]
-tracing = "0.1"
 thiserror = "1.0"
 node-semver = "2.1.0"
 
@@ -29,3 +28,11 @@ headless_chrome = { version = "1.0.5", features = ["fetch"], optional = true }
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "docs"]
+
+[[example]]
+name = "svg"
+required-features = ["auto"]
+
+[[example]]
+name = "image"
+required-features = ["auto", "image"]
