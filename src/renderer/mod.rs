@@ -69,6 +69,10 @@ impl Render {
     }
 
     /// Converts the render into an [`image::DynamicImage`].
+    ///
+    /// The `scaling_factor` parameter determines how much to scale up the output render (since the underlying SVG is a vector).  
+    /// In general, a larger scaling factor = a higher resolution image.  
+    /// You'll probably need some trial and error to figure out what works best for your use case, I'd recommend starting at ~`10.0`.  
     #[cfg(feature = "image")]
     pub fn into_image(self, scaling_factor: f32) -> Result<image::DynamicImage, image::ImageError> {
         // todo don't unwrap

@@ -25,6 +25,7 @@ anyhow = { version = "1.0", optional = true }
 headless_chrome = { version = "1.0.5", features = ["fetch"], optional = true }
 
 # docs.rs config
+# Can build docs with: RUSTDOCFLAGS="--cfg docs" cargo +nightly doc --all-features --no-deps
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "docs"]
