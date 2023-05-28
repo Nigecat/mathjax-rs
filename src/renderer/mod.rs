@@ -43,7 +43,7 @@ impl Render {
     }
 
     /// Returns the underlying SVG string. This is an `<svg>...</svg>` element.
-    pub fn raw(&self) -> &str {
+    pub fn as_raw(&self) -> &str {
         &self.source
     }
 
